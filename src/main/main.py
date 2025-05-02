@@ -10,6 +10,7 @@ import os
 import sys
 import json
 import shutil
+import datetime
 
 config = dotenv_values(".env")
 # print(config)
@@ -219,3 +220,46 @@ else:
     logger.info(
         "*******************There are no error files available at our dataset*******************"
     )
+
+
+# Additional columns need to be taken care of
+# Determine extra columns
+
+# Before running the process
+# staging table needs to be updated with status as Active (A) or Inactive (I)
+
+logger.info(
+    "*******************Updating the product staging table that we have started the process*******************"
+)
+
+insert_statements = []
+formatted_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+if correct_files:
+    for file_path in correct_files:
+        file_name = os.path.basename(file_path)
+        statement = f"""
+Insert into {config["MYSQL_DATABASE"]}.{config["product_staging_table"]} \
+(file_name, file_location, created_date, status) \
+values ('{file_name}','{file_path}','{formatted_date}', 'A')
+"""
+        insert_statements.append(statement)
+
+    logger.info(f"Insert statements created for staging table --- {insert_statements}")
+    logger.info("*******************Connecting with Mysql server*******************")
+    for statement in insert_statements:
+        logger.info(f"Executing statement {statement}")
+        cursor.execute(statement)
+        connection.commit()
+    connection.close()
+    cursor.close()
+else:
+    logger.info("*******************There are no files to process*******************")
+    raise Exception(
+        "*******************No data available with correct files*******************"
+    )
+
+logger.info("*******************Staging table updated successfully*******************")
+logger.info(
+    "*******************Fixing extra columns coming from source*******************"
+)
