@@ -5,6 +5,14 @@ from src.main.read.gcs_read import list_files
 from src.main.download.gcs_file_download import download_files
 from src.main.utility.spark_session import spark_session
 from src.main.move.move_files import move_file_gcs_to_gcs
+from pyspark.sql.types import (
+    StringType,
+    StructType,
+    StructField,
+    IntegerType,
+    FloatType,
+    DateType,
+)
 from dotenv import dotenv_values
 import os
 import sys
@@ -263,3 +271,40 @@ logger.info("*******************Staging table updated successfully**************
 logger.info(
     "*******************Fixing extra columns coming from source*******************"
 )
+
+
+schema = StructType(
+    [
+        StructField("customer_id", IntegerType(), True),
+        StructField("store_id", IntegerType(), True),
+        StructField("product_name", StringType(), True),
+        StructField("sales_date", DateType(), True),
+        StructField("sales_person_id", IntegerType(), True),
+        StructField("price", FloatType(), True),
+        StructField("quantity", IntegerType(), True),
+        StructField("total_cost", FloatType(), True),
+        StructField("additional_columns", StringType(), True),
+    ]
+)
+
+
+logger.info("*******************Creating empty Dataframe*******************")
+
+# we were trying to create empty dataframe with schema using below command but it was not working
+# but chatgpt proposed this solution and it worked
+# final_df_to_process = spark.createDataFrame([], schema=schema)
+
+# the issue was with the empty list [] and it was not working
+# so we created empty rdd and then created dataframe with schema
+
+# # Why This Works
+# [] is interpreted as a list of Row objects, but it’s empty, so PySpark can’t figure out how to map it.
+
+# spark.sparkContext.emptyRDD() creates an explicitly empty distributed dataset, which works properly with a defined schema.
+
+
+final_df_to_process = spark.createDataFrame(
+    spark.sparkContext.emptyRDD(), schema=schema
+)
+final_df_to_process.printSchema()
+final_df_to_process.show()
