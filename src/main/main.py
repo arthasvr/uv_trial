@@ -13,6 +13,18 @@ from pyspark.sql.types import (
     FloatType,
     DateType,
 )
+from pyspark.sql import functions as F
+from src.main.read.spark_db_read import read_db_spark
+from src.main.transformations.jobs.dimension_tables_join import dimensions_tables_join
+from src.main.write.dataframe_writer import write_df
+from src.main.upload.move_file_to_GCS import move_file_to_GCS
+from src.main.transformations.jobs.customer_mart_sql_transform_write import (
+    customer_mart_calculation_table_write,
+)
+from src.main.transformations.jobs.sales_mart_sql_transform_write import (
+    sales_mart_calculation_table_write,
+)
+from src.main.delete.local_file_delete import delete_local_file
 from dotenv import dotenv_values
 import os
 import sys
@@ -308,3 +320,299 @@ final_df_to_process = spark.createDataFrame(
 )
 final_df_to_process.printSchema()
 final_df_to_process.show()
+
+
+for data in correct_files:
+    data_df = spark.read.format("csv").option("header", "true").load(data)
+    data_columns = data_df.columns
+    extra_columns = list(
+        set(data_columns) - set(json.loads(str(config["mandatory_columns"])))
+    )
+    print(f"{type(extra_columns)=}")
+    logger.info(f" Extra columns present at file {data} is {extra_columns}")
+
+    if extra_columns:
+        # Here the values of the extra_columns are concatenated with comma and get added to the dataframe.
+        # If there was only one extracolumn, then you will not see any commas.
+        # But if there were 2 columns lets say "payment_mode" and "location" then their values will be concatenated and you will see value as for example "UPI,Chennai".
+        data_df = data_df.withColumn(
+            "additional_columns", F.concat_ws(",", *extra_columns)
+        ).select(
+            "customer_id",
+            "store_id",
+            "product_name",
+            "sales_date",
+            "sales_person_id",
+            "price",
+            "quantity",
+            "total_cost",
+            "additional_columns",
+        )
+        logger.info(f"Processed file {data} and added 'additional columns'")
+    else:
+        data_df = data_df.withColumn("additional_columns", F.lit(None)).select(
+            "customer_id",
+            "store_id",
+            "product_name",
+            "sales_date",
+            "sales_person_id",
+            "price",
+            "quantity",
+            "total_cost",
+            "additional_columns",
+        )
+
+    final_df_to_process = final_df_to_process.union(data_df)
+
+logger.info("Final dataframe from source which will be going to processing")
+final_df_to_process.show()
+final_df_to_process.filter(F.col("additional_columns").isNull()).show()
+
+
+# Enrich the data from all dimension tables
+# also create a datamart for sales_team and their incentive, address and all
+# another datamart for customer who bought how much each days of month
+# for every month there should be a file and inside that
+# there should be a store_id segregation
+# Read the data from parquet and generate a csv file
+# in which there will be a sales_person_name, sales_person_store_id
+# sales_person_total_billing_done_for_each_month, total_incentive
+
+
+# Creating df for all tables
+# customer table
+logger.info(
+    "*******************Loading customer table into customer_table_df*******************"
+)
+customer_table_df = read_db_spark(spark, config["customer_table_name"])
+print("customer table loaded successfully")
+customer_table_df.printSchema()
+
+# product table
+logger.info(
+    "*******************Loading product table into product_table_df*******************"
+)
+product_table_df = read_db_spark(spark, config["product_table"])
+print("product table loaded successfully")
+product_table_df.printSchema()
+
+# product_staging_table
+logger.info(
+    "*******************Loading staging table into product_staging_table_df*******************"
+)
+product_staging_table_df = read_db_spark(spark, config["product_staging_table"])
+product_staging_table_df.printSchema()
+print("product staging table loaded successfully")
+
+# sales_team table
+logger.info(
+    "*******************Loading sales team table into sales_team_table_df*******************"
+)
+sales_team_table_df = read_db_spark(spark, config["sales_team_table"])
+sales_team_table_df.printSchema()
+print("sales team table loaded successfully")
+
+# store table
+logger.info(
+    "*******************Loading store table into store_table_df*******************"
+)
+store_table_df = read_db_spark(spark, config["store_table"])
+store_table_df.printSchema()
+print("store table loaded successfully")
+
+
+gcp_customer_store_sales_df_join = dimensions_tables_join(
+    final_df_to_process, customer_table_df, store_table_df, sales_team_table_df
+)
+
+
+# Final enriched data
+logger.info("*******************Final enriched data*******************")
+gcp_customer_store_sales_df_join.show()
+
+# Write the customer data into customer datamart in parquet format
+# file will be written to local first
+# move the raw data to gcs bucket for reporting tool
+# write reporting data into mysql table also
+logger.info(
+    "*******************Write the data into customer datamart*******************"
+)
+final_customer_data_mart_df = gcp_customer_store_sales_df_join.select(
+    "ct.customer_id",
+    "ct.first_name",
+    "ct.last_name",
+    "ct.address",
+    "ct.pincode",
+    "phone_number",
+    "sales_date",
+    "total_cost",
+)
+logger.info("*******************Final data for customer Data mart*******************")
+final_customer_data_mart_df.show()
+
+
+write_df(final_customer_data_mart_df, config["customer_data_mart_local_file"])
+
+logger.info(
+    f"*******************customer data written to local disk at {config['customer_data_mart_local_file']}*******************"
+)
+
+# Move data to gcs bucket for customer_data_mart
+logger.info(
+    "*******************Data movement from local to gcs for customer data mart*******************"
+)
+
+
+move_file_to_GCS(
+    gcs_client,
+    config["gcs_customer_datamart_directory"],
+    config["GCS_BUCKET_NAME"],
+    config["customer_data_mart_local_file"],
+)
+
+
+# sales_team Data mart
+logger.info(
+    "*******************Write the data into sales team data mart*******************"
+)
+final_sales_team_data_mart_df = gcp_customer_store_sales_df_join.select(
+    "store_id",
+    "sales_person_id",
+    "sales_person_first_name",
+    "sales_person_last_name",
+    "store_manager_name",
+    "manager_id",
+    "is_manager",
+    "sales_person_address",
+    "sales_person_pincode",
+    "sales_date",
+    "total_cost",
+    F.expr("SUBSTRING(sales_date, 1, 7) as sales_month"),
+)
+
+logger.info("*******************Final data for Sales team data mart*******************")
+final_sales_team_data_mart_df.show()
+
+write_df(final_sales_team_data_mart_df, config["sales_team_data_mart_local_file"])
+
+
+logger.info(
+    f"*******************Sales team data written to local disk at {config['sales_team_data_mart_local_file']}*******************"
+)
+
+
+# Move data on gcs bucket for sales_data_mart
+move_file_to_GCS(
+    gcs_client,
+    config["gcs_sales_datamart_directory"],
+    config["GCS_BUCKET_NAME"],
+    config["sales_team_data_mart_local_file"],
+)
+
+
+# Also writing the data into partitions
+final_sales_team_data_mart_df.write.format("parquet").option("header", True).mode(
+    "overwrite"
+).partitionBy("sales_month", "store_id").option(
+    "path", config["sales_team_data_mart_partitioned_local_file"]
+).save()
+
+
+# Move data on s3 for partitioned folder
+gcp_prefix = "sales_partitioned_data_mart"
+current_epoch = int(datetime.datetime.now().timestamp()) * 1000
+bucket = gcs_client.get_bucket(config["GCS_BUCKET_NAME"])
+for root, dirs, files in os.walk(
+    str(config["sales_team_data_mart_partitioned_local_file"])
+):
+    for file in files:
+        print(file)
+        local_file_path = os.path.join(root, file)
+        relative_file_path = os.path.relpath(
+            local_file_path, str(config["sales_team_data_mart_partitioned_local_file"])
+        )
+        print(f"{relative_file_path=}")
+        gcp_key = f"{gcp_prefix}/{current_epoch}/{relative_file_path}"
+        print(f"{gcp_key=}")
+        blob = bucket.blob(gcp_key)
+        blob.upload_from_filename(local_file_path)
+        logger.info(
+            f"Uploaded {local_file_path} to gs://{config['GCS_BUCKET_NAME']}/{gcp_key}"
+        )
+
+
+logger.info(
+    "*******************Calculating customer every month purchased amount*******************"
+)
+customer_mart_calculation_table_write(final_customer_data_mart_df)
+logger.info(
+    "*******************Calculation of customer mart done and written into the table*******************"
+)
+
+
+# calculation for sales team mart
+# find out the total sales done by each sales person every month
+# Give the top performer 1% incentive of total sales of the month
+# Rest of the sales persons will get no incentive
+# write the data into MYSQL table
+logger.info("******Calculating sales every month billed amount******")
+sales_mart_calculation_table_write(final_sales_team_data_mart_df)
+logger.info("****** Calculation of sales mart done and written into the table ******")
+
+
+# *************** Last Step *********************
+# Move the file on S3 into processed folder and delete the local files
+move_file_gcs_to_gcs(
+    gcs_client,
+    config["GCS_BUCKET_NAME"],
+    config["gcs_source_directory"],
+    config["gcs_processed_directory"],
+)
+
+
+logger.info("******* Deleting sales data from local *******")
+delete_local_file(config["local_directory"])
+logger.info("******* Deleted sales data from local *******")
+
+logger.info("******* Deleting customer data from local *******")
+delete_local_file(config["customer_data_mart_local_file"])
+logger.info("******* Deleted customer data from local *******")
+
+logger.info("******* Deleting sales team data from local *******")
+delete_local_file(config["sales_team_data_mart_local_file"])
+logger.info("******* Deleted sales team data from local *******")
+
+logger.info("******* Deleting sales team data mart from local *******")
+delete_local_file(config["sales_team_data_mart_partitioned_local_file"])
+logger.info("******* Deleted sales team data mart from local *******")
+
+
+# update the status of staging table
+formatted_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+update_statements = []
+if correct_files:
+    for file in correct_files:
+        filename = os.path.basename(file)
+        statements = f"""UPDATE {config["MYSQL_DATABASE"]}.{config["product_staging_table"]} 
+        SET status = 'I', updated_date = '{formatted_date}' 
+        where file_name = '{filename}'"""
+        update_statements.append(statements)
+
+    logger.info(f"Update statements created for staging table --- {update_statements}")
+    logger.info("****** Connecting with MYSQL Server ******")
+    connection = get_connection()
+    cursor = connection.cursor()
+    logger.info("****** MYSQL server connection established successfully ******")
+    for statement in update_statements:
+        cursor.execute(statement)
+        connection.commit()
+    cursor.close()
+    connection.close()
+else:
+    logger.error(
+        "****** There were no correct_files. There seems to be some error in between ******"
+    )
+    sys.exit()
+
+
+input("Press enter to terminate")

@@ -1,0 +1,768 @@
+(uv_trial) PS F:\python_projects\uv_trial> uv run .\src\main\main.py
+2025-05-04T22:45:52.939765+0530 | INFO | Dynamically statement created 
+select distinct file_name from
+classicmodels.product_staging_table
+where file_name in ('extra_column_data.csv', 'my_data.csv', 'sales_data.csv', 'sales_data_2024-09-18.csv') and status='A'
+
+2025-05-04T22:45:52.942712+0530 | INFO | Your last run failed. Please check
+2025-05-04T22:45:53.360122+0530 | INFO | Total files available in sales_data/ of vivek-trial-3 : 4
+2025-05-04T22:45:53.361557+0530 | INFO | blob path on gcs bucket for csv file: ['sales_data/1746378920000extra_column_data.csv', 'sales_data/1746378920000my_data.csv', 'sales_data/1746378920000sales_data.csv', 'sales_data/1746378920000sales_data_2024-09-18.csv']
+2025-05-04T22:45:53.363672+0530 | INFO | File path available on gcs under vivek-trial-3 bucket and folder name is ['sales_data/1746378920000extra_column_data.csv', 'sales_data/1746378920000my_data.csv', 'sales_data/1746378920000sales_data.csv', 'sales_data/1746378920000sales_data_2024-09-18.csv']
+2025-05-04T22:45:53.366076+0530 | INFO | Running download files for these files : ['sales_data/1746378920000extra_column_data.csv', 'sales_data/1746378920000my_data.csv', 'sales_data/1746378920000sales_data.csv', 'sales_data/1746378920000sales_data_2024-09-18.csv']
+2025-05-04T22:45:53.428384+0530 | INFO | File name 1746378920000extra_column_data.csv
+2025-05-04T22:45:53.534003+0530 | INFO | File name 1746378920000my_data.csv
+2025-05-04T22:45:53.639804+0530 | INFO | File name 1746378920000sales_data.csv
+2025-05-04T22:45:53.759678+0530 | INFO | File name 1746378920000sales_data_2024-09-18.csv
+2025-05-04T22:45:53.867531+0530 | INFO | list of files present in my local directory after download are ['1746378920000extra_column_data.csv', '1746378920000my_data.csv', '1746378920000sales_data.csv', '1746378920000sales_data_2024-09-18.csv', 'extra_column_data.csv', 'my_data.csv', 'sales_data.csv', 'sales_data_2024-09-18.csv']
+2025-05-04T22:45:53.868788+0530 | INFO | *******************Listing the csv files*******************
+2025-05-04T22:45:53.869318+0530 | INFO | List of files that needs to be processed ['F:\\manish_project_local_dirs\\file_from_s3\\1746378920000extra_column_data.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\1746378920000my_data.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\1746378920000sales_data.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\1746378920000sales_data_2024-09-18.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\extra_column_data.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\my_data.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\sales_data.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\sales_data_2024-09-18.csv']
+2025-05-04T22:45:53.870695+0530 | INFO | *******************Creating Spark session*******************
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+2025-05-04T22:46:52.495537+0530 | INFO | spark session %s
+spark session <pyspark.sql.session.SparkSession object at 0x00000277BAC856A0>
+<class 'pyspark.sql.session.SparkSession'>
+2025-05-04T22:46:52.496504+0530 | INFO | *******************Spark Session created*******************
+2025-05-04T22:46:52.496936+0530 | INFO | *******************checking schema for data loaded in gcs*******************
+25/05/04 22:47:07 WARN GarbageCollectionMetrics: To enable non-built-in garbage collector(s) List(G1 Concurrent GC), users should configure it(them) to spark.eventLog.gcMetrics.youngGenerationGarbageCollectors or spark.eventLog.gcMetrics.oldGenerationGarbageCollectors
+2025-05-04T22:47:15.069720+0530 | INFO | Schema for F:\manish_project_local_dirs\file_from_s3\1746378920000extra_column_data.csv is ['customer_id', 'store_id', 'product_name', 'sales_date', 'sales_person_id', 'price', 'quantity', 'total_cost', 'payment_mode']
+2025-05-04T22:47:15.070447+0530 | INFO | mandatory columns schema is ["customer_id", "store_id", "product_name", "sales_date", "sales_person_id", "price", "quantity", "total_cost"]
+2025-05-04T22:47:15.071057+0530 | INFO | missing columns are set()
+2025-05-04T22:47:15.071574+0530 | INFO | File F:\manish_project_local_dirs\file_from_s3\1746378920000extra_column_data.csv has all mandatory columns
+2025-05-04T22:47:15.616053+0530 | INFO | Schema for F:\manish_project_local_dirs\file_from_s3\1746378920000my_data.csv is ['customer_id', 'store_id', 'product_name', 'sales_date', 'sales_person_id', 'price', 'quantity', 'total_cost']
+2025-05-04T22:47:15.619660+0530 | INFO | mandatory columns schema is ["customer_id", "store_id", "product_name", "sales_date", "sales_person_id", "price", "quantity", "total_cost"]
+2025-05-04T22:47:15.620700+0530 | INFO | missing columns are set()
+2025-05-04T22:47:15.621280+0530 | INFO | File F:\manish_project_local_dirs\file_from_s3\1746378920000my_data.csv has all mandatory columns
+2025-05-04T22:47:16.222147+0530 | INFO | Schema for F:\manish_project_local_dirs\file_from_s3\1746378920000sales_data.csv is ['customer_id', 'store_id', 'product_name', 'sales_date', 'sales_person_id', 'price', 'quantity', 'total_cost']
+2025-05-04T22:47:16.222685+0530 | INFO | mandatory columns schema is ["customer_id", "store_id", "product_name", "sales_date", "sales_person_id", "price", "quantity", "total_cost"]
+2025-05-04T22:47:16.223325+0530 | INFO | missing columns are set()
+2025-05-04T22:47:16.223747+0530 | INFO | File F:\manish_project_local_dirs\file_from_s3\1746378920000sales_data.csv has all mandatory columns
+2025-05-04T22:47:16.611987+0530 | INFO | Schema for F:\manish_project_local_dirs\file_from_s3\1746378920000sales_data_2024-09-18.csv is ['customer_id', 'store_id', 'product_name', 'sales_date', 'sales_person_id', 'price', 'quantity', 'total_cost', 'payment_mode']
+2025-05-04T22:47:16.614770+0530 | INFO | mandatory columns schema is ["customer_id", "store_id", "product_name", "sales_date", "sales_person_id", "price", "quantity", "total_cost"]
+2025-05-04T22:47:16.616812+0530 | INFO | missing columns are set()
+2025-05-04T22:47:16.617865+0530 | INFO | File F:\manish_project_local_dirs\file_from_s3\1746378920000sales_data_2024-09-18.csv has all mandatory columns
+2025-05-04T22:47:17.027442+0530 | INFO | Schema for F:\manish_project_local_dirs\file_from_s3\extra_column_data.csv is ['customer_id', 'store_id', 'product_name', 
+'sales_date', 'sales_person_id', 'price', 'quantity', 'total_cost', 'payment_mode']
+2025-05-04T22:47:17.030162+0530 | INFO | mandatory columns schema is ["customer_id", "store_id", "product_name", "sales_date", "sales_person_id", "price", "quantity", "total_cost"]
+2025-05-04T22:47:17.031086+0530 | INFO | missing columns are set()
+2025-05-04T22:47:17.031473+0530 | INFO | File F:\manish_project_local_dirs\file_from_s3\extra_column_data.csv has all mandatory columns
+2025-05-04T22:47:17.377327+0530 | INFO | Schema for F:\manish_project_local_dirs\file_from_s3\my_data.csv is ['customer_id', 'store_id', 'product_name', 'sales_date', 'sales_person_id', 'price', 'quantity', 'total_cost']
+2025-05-04T22:47:17.381800+0530 | INFO | mandatory columns schema is ["customer_id", "store_id", "product_name", "sales_date", "sales_person_id", "price", "quantity", "total_cost"]
+2025-05-04T22:47:17.384255+0530 | INFO | missing columns are set()
+2025-05-04T22:47:17.384877+0530 | INFO | File F:\manish_project_local_dirs\file_from_s3\my_data.csv has all mandatory columns
+2025-05-04T22:47:17.844863+0530 | INFO | Schema for F:\manish_project_local_dirs\file_from_s3\sales_data.csv is ['customer_id', 'store_id', 'product_name', 'sales_date', 'sales_person_id', 'price', 'quantity', 'total_cost']
+2025-05-04T22:47:17.846795+0530 | INFO | mandatory columns schema is ["customer_id", "store_id", "product_name", "sales_date", "sales_person_id", "price", "quantity", "total_cost"]
+2025-05-04T22:47:17.847924+0530 | INFO | missing columns are set()
+2025-05-04T22:47:17.848426+0530 | INFO | File F:\manish_project_local_dirs\file_from_s3\sales_data.csv has all mandatory columns
+2025-05-04T22:47:18.198334+0530 | INFO | Schema for F:\manish_project_local_dirs\file_from_s3\sales_data_2024-09-18.csv is ['customer_id', 'store_id', 'product_name', 'sales_date', 'sales_person_id', 'price', 'quantity', 'total_cost', 'payment_mode']
+2025-05-04T22:47:18.201098+0530 | INFO | mandatory columns schema is ["customer_id", "store_id", "product_name", "sales_date", "sales_person_id", "price", "quantity", "total_cost"]
+2025-05-04T22:47:18.201840+0530 | INFO | missing columns are set()
+2025-05-04T22:47:18.202397+0530 | INFO | File F:\manish_project_local_dirs\file_from_s3\sales_data_2024-09-18.csv has all mandatory columns
+2025-05-04T22:47:18.202983+0530 | INFO | *******************List of correct files*******************
+['F:\\manish_project_local_dirs\\file_from_s3\\1746378920000extra_column_data.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\1746378920000my_data.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\1746378920000sales_data.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\1746378920000sales_data_2024-09-18.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\extra_column_data.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\my_data.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\sales_data.csv', 'F:\\manish_project_local_dirs\\file_from_s3\\sales_data_2024-09-18.csv']
+2025-05-04T22:47:18.207667+0530 | INFO | *******************List of error files*******************
+[]
+2025-05-04T22:47:18.208455+0530 | INFO | *******************Moving error files to error directory if any*******************
+2025-05-04T22:47:18.210315+0530 | INFO | *******************There are no error files available at our dataset*******************
+2025-05-04T22:47:18.211845+0530 | INFO | *******************Updating the product staging table that we have started the process*******************
+2025-05-04T22:47:18.212466+0530 | INFO | Insert statements created for staging table --- ["\nInsert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('1746378920000extra_column_data.csv','F:\\manish_project_local_dirs\\file_from_s3\\1746378920000extra_column_data.csv','2025-05-04 22:47:18', 'A')\n", "\nInsert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('1746378920000my_data.csv','F:\\manish_project_local_dirs\\file_from_s3\\1746378920000my_data.csv','2025-05-04 22:47:18', 'A')\n", "\nInsert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('1746378920000sales_data.csv','F:\\manish_project_local_dirs\\file_from_s3\\1746378920000sales_data.csv','2025-05-04 22:47:18', 'A')\n", "\nInsert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('1746378920000sales_data_2024-09-18.csv','F:\\manish_project_local_dirs\\file_from_s3\\1746378920000sales_data_2024-09-18.csv','2025-05-04 22:47:18', 'A')\n", "\nInsert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('extra_column_data.csv','F:\\manish_project_local_dirs\\file_from_s3\\extra_column_data.csv','2025-05-04 22:47:18', 'A')\n", "\nInsert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('my_data.csv','F:\\manish_project_local_dirs\\file_from_s3\\my_data.csv','2025-05-04 22:47:18', 'A')\n", "\nInsert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('sales_data.csv','F:\\manish_project_local_dirs\\file_from_s3\\sales_data.csv','2025-05-04 22:47:18', 'A')\n", "\nInsert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('sales_data_2024-09-18.csv','F:\\manish_project_local_dirs\\file_from_s3\\sales_data_2024-09-18.csv','2025-05-04 22:47:18', 'A')\n"]
+2025-05-04T22:47:18.221039+0530 | INFO | *******************Connecting with Mysql server*******************
+2025-05-04T22:47:18.221573+0530 | INFO | Executing statement
+Insert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('1746378920000extra_column_data.csv','F:\manish_project_local_dirs\file_from_s3\1746378920000extra_column_data.csv','2025-05-04 22:47:18', 'A')
+
+2025-05-04T22:47:18.381560+0530 | INFO | Executing statement 
+Insert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('1746378920000my_data.csv','F:\manish_project_local_dirs\file_from_s3\1746378920000my_data.csv','2025-05-04 22:47:18', 'A')
+
+2025-05-04T22:47:18.626503+0530 | INFO | Executing statement 
+Insert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('1746378920000sales_data.csv','F:\manish_project_local_dirs\file_from_s3\1746378920000sales_data.csv','2025-05-04 22:47:18', 'A')
+
+2025-05-04T22:47:18.692788+0530 | INFO | Executing statement 
+Insert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('1746378920000sales_data_2024-09-18.csv','F:\manish_project_local_dirs\file_from_s3\1746378920000sales_data_2024-09-18.csv','2025-05-04 22:47:18', 'A')
+
+2025-05-04T22:47:18.764506+0530 | INFO | Executing statement 
+Insert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('extra_column_data.csv','F:\manish_project_local_dirs\file_from_s3\extra_column_data.csv','2025-05-04 22:47:18', 'A')
+
+2025-05-04T22:47:18.852561+0530 | INFO | Executing statement 
+Insert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('my_data.csv','F:\manish_project_local_dirs\file_from_s3\my_data.csv','2025-05-04 22:47:18', 'A')
+
+2025-05-04T22:47:19.008126+0530 | INFO | Executing statement 
+Insert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('sales_data.csv','F:\manish_project_local_dirs\file_from_s3\sales_data.csv','2025-05-04 22:47:18', 'A')
+
+2025-05-04T22:47:19.170022+0530 | INFO | Executing statement 
+Insert into classicmodels.product_staging_table (file_name, file_location, created_date, status) values ('sales_data_2024-09-18.csv','F:\manish_project_local_dirs\file_from_s3\sales_data_2024-09-18.csv','2025-05-04 22:47:18', 'A')
+
+2025-05-04T22:47:19.206362+0530 | INFO | *******************Staging table updated successfully*******************
+2025-05-04T22:47:19.206871+0530 | INFO | *******************Fixing extra columns coming from source*******************
+2025-05-04T22:47:19.207372+0530 | INFO | *******************Creating empty Dataframe*******************
+root
+ |-- customer_id: integer (nullable = true)
+ |-- store_id: integer (nullable = true)
+ |-- product_name: string (nullable = true)
+ |-- sales_date: date (nullable = true)
+ |-- sales_person_id: integer (nullable = true)
+ |-- price: float (nullable = true)
+ |-- quantity: integer (nullable = true)
+ |-- total_cost: float (nullable = true)
+ |-- additional_columns: string (nullable = true)
+
++-----------+--------+------------+----------+---------------+-----+--------+----------+------------------+
+|customer_id|store_id|product_name|sales_date|sales_person_id|price|quantity|total_cost|additional_columns|
++-----------+--------+------------+----------+---------------+-----+--------+----------+------------------+
++-----------+--------+------------+----------+---------------+-----+--------+----------+------------------+
+
+type(extra_columns)=<class 'list'>
+2025-05-04T22:47:20.092730+0530 | INFO |  Extra columns present at file F:\manish_project_local_dirs\file_from_s3\1746378920000extra_column_data.csv is ['payment_mode']
+2025-05-04T22:47:20.226400+0530 | INFO | Processed file F:\manish_project_local_dirs\file_from_s3\1746378920000extra_column_data.csv and added 'additional columns'type(extra_columns)=<class 'list'>
+2025-05-04T22:47:20.549478+0530 | INFO |  Extra columns present at file F:\manish_project_local_dirs\file_from_s3\1746378920000my_data.csv is []
+type(extra_columns)=<class 'list'>
+2025-05-04T22:47:20.947136+0530 | INFO |  Extra columns present at file F:\manish_project_local_dirs\file_from_s3\1746378920000sales_data.csv is []
+type(extra_columns)=<class 'list'>
+2025-05-04T22:47:21.317725+0530 | INFO |  Extra columns present at file F:\manish_project_local_dirs\file_from_s3\1746378920000sales_data_2024-09-18.csv is ['payment_mode']
+2025-05-04T22:47:21.419689+0530 | INFO | Processed file F:\manish_project_local_dirs\file_from_s3\1746378920000sales_data_2024-09-18.csv and added 'additional columns'
+type(extra_columns)=<class 'list'>
+2025-05-04T22:47:21.683021+0530 | INFO |  Extra columns present at file F:\manish_project_local_dirs\file_from_s3\extra_column_data.csv is ['payment_mode']
+2025-05-04T22:47:21.798787+0530 | INFO | Processed file F:\manish_project_local_dirs\file_from_s3\extra_column_data.csv and added 'additional columns'
+type(extra_columns)=<class 'list'>
+2025-05-04T22:47:22.109925+0530 | INFO |  Extra columns present at file F:\manish_project_local_dirs\file_from_s3\my_data.csv is []
+type(extra_columns)=<class 'list'>
+2025-05-04T22:47:22.431554+0530 | INFO |  Extra columns present at file F:\manish_project_local_dirs\file_from_s3\sales_data.csv is []
+type(extra_columns)=<class 'list'>
+2025-05-04T22:47:22.751032+0530 | INFO |  Extra columns present at file F:\manish_project_local_dirs\file_from_s3\sales_data_2024-09-18.csv is ['payment_mode']
+2025-05-04T22:47:22.831094+0530 | INFO | Processed file F:\manish_project_local_dirs\file_from_s3\sales_data_2024-09-18.csv and added 'additional columns'
+2025-05-04T22:47:22.843004+0530 | INFO | Final dataframe from source which will be going to processing
++-----------+--------+------------+----------+---------------+-----+--------+----------+------------------+
+|customer_id|store_id|product_name|sales_date|sales_person_id|price|quantity|total_cost|additional_columns|
++-----------+--------+------------+----------+---------------+-----+--------+----------+------------------+
+|         12|     123| refined oil|2024-08-12|              9|  110|      10|      1100|              cash|
+|         15|     121| clinic plus|2024-08-12|              1|  1.5|      10|      15.0|               UPI|
+|         16|     123| refined oil|2024-08-12|              7|  110|       8|       880|               UPI|
+|         11|     121|       sugar|2024-08-12|              3|   50|       7|       350|              cash|
+|         19|     122| refined oil|2024-08-12|              5|  110|       3|       330|              cash|
+|         14|     121|    nutrella|2024-08-12|              1|   40|       9|       360|              cash|
+|         17|     122|    nutrella|2024-08-12|              4|   40|       4|       160|               UPI|
+|         17|     123| quaker oats|2024-08-12|              9|  212|       5|      1060|               UPI|
+|         14|     123| quaker oats|2024-08-12|              9|  212|       1|       212|              cash|
+|          8|     121| clinic plus|2024-08-12|              1|  1.5|       3|       4.5|               UPI|
+|          3|     122| quaker oats|2024-08-12|              4|  212|      10|      2120|               UPI|
+|         14|     121| quaker oats|2024-08-12|              1|  212|       6|      1272|               UPI|
+|          5|     123| clinic plus|2024-08-12|              9|  1.5|       1|       1.5|               UPI|
+|          9|     121| quaker oats|2024-08-12|              2|  212|      10|      2120|              cash|
+|          5|     123| refined oil|2024-08-12|              8|  110|       3|       330|              cash|
+|          3|     122|       besan|2024-08-12|              5|   52|       1|        52|               UPI|
+|          4|     122|       sugar|2024-08-12|              6|   50|       6|       300|              cash|
+|         12|     121|   dantkanti|2024-08-12|              3|  100|       2|       200|               UPI|
+|         12|     123|       besan|2024-08-12|              8|   52|       1|        52|              cash|
+|         14|     121| refined oil|2024-08-12|              2|  110|       4|       440|               UPI|
++-----------+--------+------------+----------+---------------+-----+--------+----------+------------------+
+only showing top 20 rows
+
++-----------+--------+------------+----------+---------------+-----+--------+----------+------------------+
+|customer_id|store_id|product_name|sales_date|sales_person_id|price|quantity|total_cost|additional_columns|
++-----------+--------+------------+----------+---------------+-----+--------+----------+------------------+
+|          8|     122|       maida|2024-08-12|              4|   20|       3|        60|              NULL|
+|         16|     122| quaker oats|2024-08-12|              5|  212|       2|       424|              NULL|
+|          5|     122| refined oil|2024-08-12|              5|  110|       7|       770|              NULL|
+|         10|     122| clinic plus|2024-08-12|              6|  1.5|       2|       3.0|              NULL|
+|          2|     121|    nutrella|2024-08-12|              2|   40|       8|       320|              NULL|
+|         11|     121|       sugar|2024-08-12|              1|   50|      10|       500|              NULL|
+|          8|     121|       maida|2024-08-12|              2|   20|      10|       200|              NULL|
+|         17|     123|   dantkanti|2024-08-12|              8|  100|      10|      1000|              NULL|
+|         11|     121|       sugar|2024-08-12|              2|   50|       7|       350|              NULL|
+|          4|     121| clinic plus|2024-08-12|              1|  1.5|       8|      12.0|              NULL|
+|         19|     122|    nutrella|2024-08-12|              4|   40|       3|       120|              NULL|
+|          8|     123| clinic plus|2024-08-12|              8|  1.5|       8|      12.0|              NULL|
+|         19|     121|       sugar|2024-08-12|              3|   50|       2|       100|              NULL|
+|          2|     122| quaker oats|2024-08-12|              6|  212|       8|      1696|              NULL|
+|          8|     123|       sugar|2024-08-12|              7|   50|       5|       250|              NULL|
+|          9|     121| quaker oats|2024-08-12|              2|  212|      10|      2120|              NULL|
+|         18|     122| refined oil|2024-08-12|              4|  110|       2|       220|              NULL|
+|          4|     123|       maida|2024-08-12|              9|   20|       8|       160|              NULL|
+|         17|     123| clinic plus|2024-08-12|              7|  1.5|       9|      13.5|              NULL|
+|         17|     121| refined oil|2024-08-12|              3|  110|       8|       880|              NULL|
++-----------+--------+------------+----------+---------------+-----+--------+----------+------------------+
+only showing top 20 rows
+
+2025-05-04T22:47:24.827510+0530 | INFO | *******************Loading customer table into customer_table_df*******************
+customer table loaded successfully
+root
+ |-- customer_id: integer (nullable = true)
+ |-- first_name: string (nullable = true)
+ |-- last_name: string (nullable = true)
+ |-- address: string (nullable = true)
+ |-- pincode: string (nullable = true)
+ |-- phone_number: string (nullable = true)
+ |-- customer_joining_date: date (nullable = true)
+
+2025-05-04T22:47:26.384487+0530 | INFO | *******************Loading product table into product_table_df*******************
+product table loaded successfully
+root
+ |-- id: integer (nullable = true)
+ |-- name: string (nullable = true)
+ |-- current_price: decimal(10,2) (nullable = true)
+ |-- old_price: decimal(10,2) (nullable = true)
+ |-- created_date: timestamp (nullable = true)
+ |-- updated_date: timestamp (nullable = true)
+ |-- expiry_date: date (nullable = true)
+
+2025-05-04T22:47:26.464017+0530 | INFO | *******************Loading staging table into product_staging_table_df*******************
+root
+ |-- id: integer (nullable = true)
+ |-- file_name: string (nullable = true)
+ |-- file_location: string (nullable = true)
+ |-- created_date: timestamp (nullable = true)
+ |-- updated_date: timestamp (nullable = true)
+ |-- status: string (nullable = true)
+
+product staging table loaded successfully
+2025-05-04T22:47:26.538489+0530 | INFO | *******************Loading sales team table into sales_team_table_df*******************
+root
+ |-- id: integer (nullable = true)
+ |-- first_name: string (nullable = true)
+ |-- last_name: string (nullable = true)
+ |-- manager_id: integer (nullable = true)
+ |-- is_manager: string (nullable = true)
+ |-- address: string (nullable = true)
+ |-- pincode: string (nullable = true)
+ |-- joining_date: date (nullable = true)
+
+sales team table loaded successfully
+2025-05-04T22:47:26.669337+0530 | INFO | *******************Loading store table into store_table_df*******************
+root
+ |-- id: integer (nullable = true)
+ |-- address: string (nullable = true)
+ |-- store_pincode: string (nullable = true)
+ |-- store_manager_name: string (nullable = true)
+ |-- store_opening_date: date (nullable = true)
+ |-- reviews: string (nullable = true)
+
+store table loaded successfully
+2025-05-04T22:47:26.743600+0530 | INFO | Joining the final_df_to_process with customer_table_df
+root
+ |-- customer_id: string (nullable = true)
+ |-- store_id: string (nullable = true)
+ |-- sales_date: string (nullable = true)
+ |-- sales_person_id: string (nullable = true)
+ |-- total_cost: string (nullable = true)
+ |-- customer_id: integer (nullable = true)
+ |-- first_name: string (nullable = true)
+ |-- last_name: string (nullable = true)
+ |-- address: string (nullable = true)
+ |-- pincode: string (nullable = true)
+ |-- phone_number: string (nullable = true)
+
+2025-05-04T22:47:26.879875+0530 | INFO | Joining the gcp_customer_df_join with store_table_df
+2025-05-04T22:47:26.962665+0530 | INFO | Joining the gcp_customer_store_df_join with sales_team_table_df 
+2025-05-04T22:47:27.101918+0530 | INFO | *******************Final enriched data*******************
++-----------+--------+----------+---------------+----------+-----------+----------+---------+-------+-------+------------+-------+------------------+----------+---------+----------+----------+-------+-------+------------+-----------------------+----------------------+--------------------+--------------------+
+|customer_id|store_id|sales_date|sales_person_id|total_cost|customer_id|first_name|last_name|address|pincode|phone_number|address|store_manager_name|first_name|last_name|manager_id|is_manager|address|pincode|joining_date|sales_person_first_name|sales_person_last_name|sales_person_address|sales_person_pincode|
++-----------+--------+----------+---------------+----------+-----------+----------+---------+-------+-------+------------+-------+------------------+----------+---------+----------+----------+-------+-------+------------+-----------------------+----------------------+--------------------+--------------------+
+|          1|     121|2024-08-12|              1|       110|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       200|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|        40|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|        80|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|      1060|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       120|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       1.5|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       300|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       250|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       990|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       160|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       800|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       200|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       300|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       180|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|      10.5|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|        20|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       300|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       600|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
+|          1|     121|2024-08-12|              1|       200|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|  Delhi|            Manish|     Rahul|   
+ Verma|        10|         N|  Delhi| 122007|  2020-05-01|                  Rahul|                 Verma|               Delhi|              122007|
++-----------+--------+----------+---------------+----------+-----------+----------+---------+-------+-------+------------+-------+------------------+----------+---------+----------+----------+-------+-------+------------+-----------------------+----------------------+--------------------+--------------------+
+only showing top 20 rows
+
+2025-05-04T22:47:34.491304+0530 | INFO | *******************Write the data into customer datamart*******************
+2025-05-04T22:47:34.575539+0530 | INFO | *******************Final data for customer Data mart*******************
++-----------+----------+---------+-------+-------+------------+----------+----------+
+|customer_id|first_name|last_name|address|pincode|phone_number|sales_date|total_cost|
++-----------+----------+---------+-------+-------+------------+----------+----------+
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       110|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       200|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|        40|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|        80|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|      1060|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       120|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       1.5|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       300|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       250|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       990|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       160|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       800|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       200|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       300|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       180|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|      10.5|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|        20|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       300|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       600|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       200|
++-----------+----------+---------+-------+-------+------------+----------+----------+
+only showing top 20 rows
+
+2025-05-04T22:47:52.493777+0530 | INFO | Data written into F:\\manish_project_local_dirs\\customer_data_mart\\ in the parquet format with overwrite mode.
+2025-05-04T22:47:52.526389+0530 | INFO | *******************customer data written to local disk at F:\\manish_project_local_dirs\\customer_data_mart\\*******************
+2025-05-04T22:47:52.527385+0530 | INFO | *******************Data movement from local to gcs for customer data mart*******************
+inside move_file_to_GCS function
+local_file_path='F:\\\\manish_project_local_dirs\\\\customer_data_mart\\\\'
+.part-00000-96cb367b-3eee-41c8-b74f-c94bf1a8273b-c000.snappy.parquet.crc
+local_file_path='F:\\\\manish_project_local_dirs\\\\customer_data_mart\\\\.part-00000-96cb367b-3eee-41c8-b74f-c94bf1a8273b-c000.snappy.parquet.crc'
+bucket.name='vivek-trial-3'
+gcs_key='customer_data_mart/1746379072000.part-00000-96cb367b-3eee-41c8-b74f-c94bf1a8273b-c000.snappy.parquet.crc'
+
+
+
+._SUCCESS.crc
+local_file_path='F:\\\\manish_project_local_dirs\\\\customer_data_mart\\\\._SUCCESS.crc'
+bucket.name='vivek-trial-3'
+gcs_key='customer_data_mart/1746379072000._SUCCESS.crc'
+
+
+
+part-00000-96cb367b-3eee-41c8-b74f-c94bf1a8273b-c000.snappy.parquet
+local_file_path='F:\\\\manish_project_local_dirs\\\\customer_data_mart\\\\part-00000-96cb367b-3eee-41c8-b74f-c94bf1a8273b-c000.snappy.parquet'
+bucket.name='vivek-trial-3'
+gcs_key='customer_data_mart/1746379072000part-00000-96cb367b-3eee-41c8-b74f-c94bf1a8273b-c000.snappy.parquet'
+
+
+
+_SUCCESS
+local_file_path='F:\\\\manish_project_local_dirs\\\\customer_data_mart\\\\_SUCCESS'
+bucket.name='vivek-trial-3'
+gcs_key='customer_data_mart/1746379072000_SUCCESS'
+
+
+
+2025-05-04T22:47:53.132791+0530 | INFO | *******************Write the data into sales team data mart*******************
+2025-05-04T22:47:53.682013+0530 | INFO | *******************Final data for Sales team data mart*******************
++--------+---------------+-----------------------+----------------------+------------------+----------+----------+--------------------+--------------------+----------+----------+-----------+
+|store_id|sales_person_id|sales_person_first_name|sales_person_last_name|store_manager_name|manager_id|is_manager|sales_person_address|sales_person_pincode|sales_date|total_cost|sales_month|
++--------+---------------+-----------------------+----------------------+------------------+----------+----------+--------------------+--------------------+----------+----------+-----------+
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       110|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       200|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|        40|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|        80|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|      1060|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       120|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       1.5|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       300|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       250|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       990|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       160|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       800|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       200|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       300|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       180|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|      10.5|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|        20|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       300|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       600|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       200|    2024-08|
++--------+---------------+-----------------------+----------------------+------------------+----------+----------+--------------------+--------------------+----------+----------+-----------+
+only showing top 20 rows
+
+2025-05-04T22:47:59.626673+0530 | INFO | Data written into F:\\manish_project_local_dirs\\sales_team_data_mart\\ in the parquet format with overwrite mode.
+2025-05-04T22:47:59.632171+0530 | INFO | *******************Sales team data written to local disk at F:\\manish_project_local_dirs\\sales_team_data_mart\\*******************
+inside move_file_to_GCS function
+local_file_path='F:\\\\manish_project_local_dirs\\\\sales_team_data_mart\\\\'
+.part-00000-805b1287-29a2-4130-886e-70c6621f4f63-c000.snappy.parquet.crc
+local_file_path='F:\\\\manish_project_local_dirs\\\\sales_team_data_mart\\\\.part-00000-805b1287-29a2-4130-886e-70c6621f4f63-c000.snappy.parquet.crc'
+bucket.name='vivek-trial-3'
+gcs_key='sales_data_mart/1746379079000.part-00000-805b1287-29a2-4130-886e-70c6621f4f63-c000.snappy.parquet.crc'
+
+
+
+._SUCCESS.crc
+local_file_path='F:\\\\manish_project_local_dirs\\\\sales_team_data_mart\\\\._SUCCESS.crc'
+bucket.name='vivek-trial-3'
+gcs_key='sales_data_mart/1746379079000._SUCCESS.crc'
+
+
+
+part-00000-805b1287-29a2-4130-886e-70c6621f4f63-c000.snappy.parquet
+local_file_path='F:\\\\manish_project_local_dirs\\\\sales_team_data_mart\\\\part-00000-805b1287-29a2-4130-886e-70c6621f4f63-c000.snappy.parquet'
+bucket.name='vivek-trial-3'
+gcs_key='sales_data_mart/1746379079000part-00000-805b1287-29a2-4130-886e-70c6621f4f63-c000.snappy.parquet'
+
+
+
+_SUCCESS
+local_file_path='F:\\\\manish_project_local_dirs\\\\sales_team_data_mart\\\\_SUCCESS'
+bucket.name='vivek-trial-3'
+gcs_key='sales_data_mart/1746379079000_SUCCESS'
+
+
+
+._SUCCESS.crc
+relative_file_path='._SUCCESS.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/._SUCCESS.crc'
+2025-05-04T22:48:03.779970+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\._SUCCESS.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/._SUCCESS.crc
+_SUCCESS
+relative_file_path='_SUCCESS'
+gcp_key='sales_partitioned_data_mart/1746379083000/_SUCCESS'
+2025-05-04T22:48:03.860846+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\_SUCCESS to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/_SUCCESS
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-03\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-03\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:04.031139+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-03\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-03\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-03\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-03\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:04.188818+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-03\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-03\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-03\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-03\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:04.328928+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-03\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-03\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-03\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-03\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:04.479929+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-03\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-03\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-03\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-03\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:04.594384+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-03\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-03\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-03\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-03\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:04.749370+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-03\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-03\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-04\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-04\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:04.988163+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-04\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-04\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-04\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-04\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:05.139101+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-04\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-04\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-04\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-04\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:05.291557+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-04\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-04\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-04\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-04\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:05.445649+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-04\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-04\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-04\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-04\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:05.606680+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-04\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-04\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-04\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-04\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:05.750709+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-04\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-04\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-05\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-05\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:05.908040+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-05\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-05\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-05\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-05\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:06.041634+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-05\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-05\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-05\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-05\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:06.197734+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-05\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-05\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-05\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-05\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:06.345258+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-05\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-05\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-05\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-05\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:06.461225+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-05\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-05\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-05\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-05\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:06.617485+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-05\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-05\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-06\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-06\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:06.725783+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-06\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-06\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-06\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-06\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:06.899064+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-06\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-06\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-06\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-06\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:07.056264+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-06\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-06\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-06\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-06\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:07.165986+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-06\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-06\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-06\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-06\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:07.304385+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-06\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-06\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-06\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-06\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:07.432125+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-06\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-06\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-07\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-07\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:07.585170+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-07\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-07\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-07\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-07\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:07.745364+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-07\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-07\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-07\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-07\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:07.887817+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-07\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-07\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-07\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-07\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:08.026029+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-07\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-07\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-07\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-07\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:08.131551+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-07\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-07\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-07\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-07\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:08.291599+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-07\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-07\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-08\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-08\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:08.421437+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-08\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-08\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-08\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-08\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:08.553125+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-08\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-08\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-08\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-08\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:08.631653+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-08\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-08\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-08\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-08\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:08.727012+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-08\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-08\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2023-08\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-08\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:08.861535+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-08\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-08\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2023-08\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2023-08\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:09.018472+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-08\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2023-08\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2024-08\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2024-08\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:09.164380+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-08\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2024-08\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2024-08\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2024-08\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:09.304537+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-08\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2024-08\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2024-08\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2024-08\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:09.424085+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-08\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2024-08\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2024-08\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2024-08\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:09.527625+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-08\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2024-08\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2024-08\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2024-08\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:09.670597+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-08\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2024-08\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2024-08\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2024-08\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:09.776289+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-08\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2024-08\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2024-09\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2024-09\\store_id=121\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:09.906934+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-09\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2024-09\store_id=121\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2024-09\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2024-09\\store_id=121\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:10.035920+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-09\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2024-09\store_id=121\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2024-09\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2024-09\\store_id=122\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:10.173745+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-09\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2024-09\store_id=122\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2024-09\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2024-09\\store_id=122\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:10.337149+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-09\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2024-09\store_id=122\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+relative_file_path='sales_month=2024-09\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2024-09\\store_id=123\\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc'    
+2025-05-04T22:48:10.465278+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-09\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2024-09\store_id=123\.part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet.crc
+part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+relative_file_path='sales_month=2024-09\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+gcp_key='sales_partitioned_data_mart/1746379083000/sales_month=2024-09\\store_id=123\\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet'
+2025-05-04T22:48:10.569507+0530 | INFO | Uploaded F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-09\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet to gs://vivek-trial-3/sales_partitioned_data_mart/1746379083000/sales_month=2024-09\store_id=123\part-00000-a5e28f8e-fcef-48ab-8014-ef8dc0918264.c000.snappy.parquet
+2025-05-04T22:48:10.572865+0530 | INFO | *******************Calculating customer every month purchased amount*******************
+from inside customer_mart_calculation_table_write function
++-----------+----------+---------+-------+-------+------------+----------+----------+
+|customer_id|first_name|last_name|address|pincode|phone_number|sales_date|total_cost|
++-----------+----------+---------+-------+-------+------------+----------+----------+
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       110|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       200|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|        40|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|        80|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|      1060|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       120|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       1.5|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       300|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       250|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       990|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       160|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       800|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       200|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       300|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       180|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|      10.5|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|        20|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       300|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       600|
+|          1|    Saanvi|  Krishna|  Delhi| 122009|  9173121081|2024-08-12|       200|
++-----------+----------+---------+-------+-------+------------+----------+----------+
+only showing top 20 rows
+
++-----------+--------------+-------+------------+----------------+-----------+
+|customer_id|     full_name|address|phone_number|sales_date_month|total_sales|
++-----------+--------------+-------+------------+----------------+-----------+
+|          1|Saanvi Krishna|  Delhi|  9173121081|         2023-03|    43562.0|
+|          1|Saanvi Krishna|  Delhi|  9173121081|         2023-04|    43215.0|
+|          1|Saanvi Krishna|  Delhi|  9173121081|         2023-05|    44688.0|
+|          1|Saanvi Krishna|  Delhi|  9173121081|         2023-06|    35905.0|
+|          1|Saanvi Krishna|  Delhi|  9173121081|         2023-07|    31594.0|
+|          1|Saanvi Krishna|  Delhi|  9173121081|         2023-08|    25641.0|
+|          1|Saanvi Krishna|  Delhi|  9173121081|         2024-08|   219268.0|
+|          1|Saanvi Krishna|  Delhi|  9173121081|         2024-09|    51659.0|
+|          2| Dhanush Sahni|  Delhi|  9155328165|         2023-03|    63187.0|
+|          2| Dhanush Sahni|  Delhi|  9155328165|         2023-04|    31497.0|
+|          2| Dhanush Sahni|  Delhi|  9155328165|         2023-05|    35850.0|
+|          2| Dhanush Sahni|  Delhi|  9155328165|         2023-06|    30196.0|
+|          2| Dhanush Sahni|  Delhi|  9155328165|         2023-07|    35820.0|
+|          2| Dhanush Sahni|  Delhi|  9155328165|         2023-08|    15180.0|
+|          2| Dhanush Sahni|  Delhi|  9155328165|         2024-08|   215315.0|
+|          2| Dhanush Sahni|  Delhi|  9155328165|         2024-09|    31015.0|
+|          3|   Yasmin Shan|  Delhi|  9191478300|         2023-03|    24947.0|
+|          3|   Yasmin Shan|  Delhi|  9191478300|         2023-04|    43742.0|
+|          3|   Yasmin Shan|  Delhi|  9191478300|         2023-05|    27194.0|
+|          3|   Yasmin Shan|  Delhi|  9191478300|         2023-06|    33821.0|
++-----------+--------------+-------+------------+----------------+-----------+
+only showing top 20 rows
+
+2025-05-04T22:48:20.536322+0530 | INFO | Data written into customers_data_mart in the parquet format with overwrite mode.
+2025-05-04T22:48:20.545385+0530 | INFO | *******************Calculation of customer mart done and written into the table*******************
+2025-05-04T22:48:20.547231+0530 | INFO | ******Calculating sales every month billed amount******
++--------+---------------+-----------------------+----------------------+------------------+----------+----------+--------------------+--------------------+----------+----------+-----------+
+|store_id|sales_person_id|sales_person_first_name|sales_person_last_name|store_manager_name|manager_id|is_manager|sales_person_address|sales_person_pincode|sales_date|total_cost|sales_month|
++--------+---------------+-----------------------+----------------------+------------------+----------+----------+--------------------+--------------------+----------+----------+-----------+
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       110|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       200|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|        40|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|        80|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|      1060|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       120|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       1.5|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       300|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       250|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       990|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       160|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       800|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       200|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       300|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       180|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|      10.5|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|        20|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       300|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       600|    2024-08|
+|     121|              1|                  Rahul|                 Verma|            Manish|        10|         N|               Delhi|              122007|2024-08-12|       200|    2024-08|
++--------+---------------+-----------------------+----------------------+------------------+----------+----------+--------------------+--------------------+----------+----------+-----------+
+only showing top 20 rows
+
+2025-05-04T22:48:28.260127+0530 | INFO | Data written into sales_team_data_mart in the parquet format with overwrite mode.
+2025-05-04T22:48:28.301316+0530 | INFO | ****** Calculation of sales mart done and written into the table ******
+2025-05-04T22:48:28.685818+0530 | INFO | Moved sales_data/1746378920000extra_column_data.csv to sales_data_processed/1746378920000extra_column_data.csv
+2025-05-04T22:48:28.850330+0530 | INFO | Moved sales_data/1746378920000my_data.csv to sales_data_processed/1746378920000my_data.csv
+2025-05-04T22:48:29.041221+0530 | INFO | Moved sales_data/1746378920000sales_data.csv to sales_data_processed/1746378920000sales_data.csv
+2025-05-04T22:48:29.219927+0530 | INFO | Moved sales_data/1746378920000sales_data_2024-09-18.csv to sales_data_processed/1746378920000sales_data_2024-09-18.csv
+2025-05-04T22:48:29.221803+0530 | INFO | ******* Deleting sales data from local *******
+2025-05-04T22:48:29.225190+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\file_from_s3\\1746378920000extra_column_data.csv
+2025-05-04T22:48:29.228214+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\file_from_s3\\1746378920000my_data.csv
+2025-05-04T22:48:29.232472+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\file_from_s3\\1746378920000sales_data.csv
+2025-05-04T22:48:29.235919+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\file_from_s3\\1746378920000sales_data_2024-09-18.csv
+2025-05-04T22:48:29.240287+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\file_from_s3\\extra_column_data.csv
+2025-05-04T22:48:29.244003+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\file_from_s3\\my_data.csv
+2025-05-04T22:48:29.247453+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\file_from_s3\\sales_data.csv
+2025-05-04T22:48:29.263084+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\file_from_s3\\sales_data_2024-09-18.csv
+2025-05-04T22:48:29.264932+0530 | INFO | ******* Deleted sales data from local *******
+2025-05-04T22:48:29.267889+0530 | INFO | ******* Deleting customer data from local *******
+2025-05-04T22:48:29.271576+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\customer_data_mart\\.part-00000-96cb367b-3eee-41c8-b74f-c94bf1a8273b-c000.snappy.parquet.crc
+2025-05-04T22:48:29.282943+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\customer_data_mart\\_SUCCESS
+2025-05-04T22:48:29.285077+0530 | INFO | ******* Deleted customer data from local *******
+2025-05-04T22:48:29.286340+0530 | INFO | ******* Deleting sales team data from local *******
+2025-05-04T22:48:29.288113+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\sales_team_data_mart\\.part-00000-805b1287-29a2-4130-886e-70c6621f4f63-c000.snappy.parquet.crc
+2025-05-04T22:48:29.290706+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\sales_team_data_mart\\._SUCCESS.crc
+2025-05-04T22:48:29.293801+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\sales_team_data_mart\\part-00000-805b1287-29a2-4130-886e-70c6621f4f63-c000.snappy.parquet
+2025-05-04T22:48:29.299483+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\sales_team_data_mart\\_SUCCESS
+2025-05-04T22:48:29.299995+0530 | INFO | ******* Deleted sales team data from local *******
+2025-05-04T22:48:29.300453+0530 | INFO | ******* Deleting sales team data mart from local *******
+2025-05-04T22:48:29.301568+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\sales_partition_data\\._SUCCESS.crc
+2025-05-04T22:48:29.314348+0530 | INFO | Deleted folder: F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-03
+2025-05-04T22:48:29.317621+0530 | INFO | Deleted folder: F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-04
+2025-05-04T22:48:29.324574+0530 | INFO | Deleted folder: F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-05
+2025-05-04T22:48:29.334299+0530 | INFO | Deleted folder: F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-06
+2025-05-04T22:48:29.341592+0530 | INFO | Deleted folder: F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-07
+2025-05-04T22:48:29.352866+0530 | INFO | Deleted folder: F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2023-08
+2025-05-04T22:48:29.366740+0530 | INFO | Deleted folder: F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-08
+2025-05-04T22:48:29.369815+0530 | INFO | Deleted folder: F:\\manish_project_local_dirs\\sales_partition_data\\sales_month=2024-09
+2025-05-04T22:48:29.373951+0530 | INFO | Deleted file: F:\\manish_project_local_dirs\\sales_partition_data\\_SUCCESS
+2025-05-04T22:48:29.375727+0530 | INFO | ******* Deleted sales team data mart from local *******
+2025-05-04T22:48:29.376632+0530 | INFO | Update statements created for staging table --- ["UPDATE classicmodels.product_staging_table \n        SET status = 'I', updated_date = '2025-05-04 22:48:29' \n        where file_name = '1746378920000extra_column_data.csv'", "UPDATE classicmodels.product_staging_table \n        SET status = 'I', updated_date = '2025-05-04 22:48:29' \n        where file_name = '1746378920000my_data.csv'", "UPDATE classicmodels.product_staging_table \n        SET status = 'I', updated_date = '2025-05-04 22:48:29' \n        where file_name = '1746378920000sales_data.csv'", "UPDATE classicmodels.product_staging_table \n     
+   SET status = 'I', updated_date = '2025-05-04 22:48:29' \n        where file_name = '1746378920000sales_data_2024-09-18.csv'", "UPDATE classicmodels.product_staging_table \n        SET status = 'I', updated_date = '2025-05-04 22:48:29' \n        where file_name = 'extra_column_data.csv'", "UPDATE classicmodels.product_staging_table \n        SET status = 'I', updated_date = '2025-05-04 22:48:29' \n        where file_name = 'my_data.csv'", "UPDATE classicmodels.product_staging_table 
+\n        SET status = 'I', updated_date = '2025-05-04 22:48:29' \n        where file_name = 'sales_data.csv'", "UPDATE classicmodels.product_staging_table \n     
+   SET status = 'I', updated_date = '2025-05-04 22:48:29' \n        where file_name = 'sales_data_2024-09-18.csv'"]
+2025-05-04T22:48:29.378280+0530 | INFO | ****** Connecting with MYSQL Server ******
+2025-05-04T22:48:29.398482+0530 | INFO | ****** MYSQL server connection established successfully ******
+Press enter to terminate
+(uv_trial) PS F:\python_projects\uv_trial> SUCCESS: The process with PID 4488 (child process of PID 8520) has been terminated.
+SUCCESS: The process with PID 8520 (child process of PID 15372) has been terminated.
+SUCCESS: The process with PID 15372 (child process of PID 17012) has been terminated.
+
+(uv_trial) PS F:\python_projects\uv_trial>
+(uv_trial) PS F:\python_projects\uv_trial> uv run .\src\main\main.py
+2025-05-04T22:49:14.575415+0530 | INFO | Last run was successful
+2025-05-04T22:49:15.079217+0530 | INFO | Total files available in sales_data/ of vivek-trial-3 : 0
+2025-05-04T22:49:15.080561+0530 | INFO | blob path on gcs bucket for csv file: []
+2025-05-04T22:49:15.081702+0530 | INFO | No files available at sales_data/
+2025-05-04T22:49:15.083209+0530 | ERROR | Exited with error {e}
+Traceback (most recent call last):
+  File "F:\python_projects\uv_trial\src\main\main.py", line 101, in <module>
+    raise e
+  File "F:\python_projects\uv_trial\src\main\main.py", line 98, in <module>
+    raise Exception("No data available to process")
+Exception: No data available to process
+(uv_trial) PS F:\python_projects\uv_trial> 
